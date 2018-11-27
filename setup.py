@@ -55,4 +55,5 @@ setuptools.setup(
     tests_require=read_requirements('test-requirements.txt'),
     test_suite='nose.collector',
     zip_safe=True,
+    python_requires='>=3.5'
 )
