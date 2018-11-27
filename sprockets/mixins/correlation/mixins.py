@@ -39,13 +39,13 @@ class HandlerMixin:
         self.__header_name = kwargs.pop(
             'correlation_header', 'Correlation-ID')
         self.__correlation_id = str(uuid.uuid4())
-        super(HandlerMixin, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
 
     async def prepare(self):
         # Here we want to copy an incoming Correlation-ID header if
         # one exists.  We also want to set it in the outgoing response
         # which the property setter does for us.
-        maybe_future = super(HandlerMixin, self).prepare()
+        maybe_future = super().prepare()
         if concurrent.is_future(maybe_future):
             await maybe_future
 
@@ -57,7 +57,7 @@ class HandlerMixin:
         # This is called during initialization as well as *AFTER*
         # calling clear() when an error occurs so we need to make
         # sure that our header is set again...
-        super(HandlerMixin, self).set_default_headers()
+        super().set_default_headers()
         self.set_header(self.__header_name, self.correlation_id)
 
     @property
