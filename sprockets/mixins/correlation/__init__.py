@@ -1,10 +1,4 @@
-try:
-    from .mixins import HandlerMixin
-except ImportError:
-
-    class HandlerMixin:
-        def __init__(self, *args, **kwargs):
-            raise ImportError
+from .mixins import HandlerMixin
 
 
 version_info = (2, 0, 0)
