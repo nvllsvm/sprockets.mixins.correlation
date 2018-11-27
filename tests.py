@@ -1,5 +1,4 @@
 import uuid
-import unittest
 
 from tornado import testing, web
 
