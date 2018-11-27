@@ -3,7 +3,7 @@ import uuid
 from tornado import concurrent, log
 
 
-class HandlerMixin(object):
+class HandlerMixin:
     """
     Mix this in over a ``RequestHandler`` for a correlating header.
 

@@ -2,7 +2,7 @@ try:
     from .mixins import HandlerMixin
 except ImportError:
 
-    class HandlerMixin(object):
+    class HandlerMixin:
         def __init__(self, *args, **kwargs):
             raise ImportError
 
