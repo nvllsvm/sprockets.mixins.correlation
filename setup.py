@@ -1,7 +1,5 @@
 #!/usr/bin/env python
-import codecs
-from os import path
-import sys
+import pathlib
 
 import setuptools
 
@@ -10,18 +8,14 @@ from sprockets.mixins import correlation
 
 def read_requirements(name):
     requirements = []
-    try:
-        with open(path.join('requires', name)) as req_file:
-            for line in req_file:
-                if '#' in line:
-                    line = line[:line.index('#')]
-                line = line.strip()
-                if line.startswith('-r'):
-                    requirements.extend(read_requirements(line[2:].strip()))
-                elif line and not line.startswith('-'):
-                    requirements.append(line)
-    except IOError:
-        pass
+    for line in pathlib.Path('requires', name).read_text().split('\n'):
+        if '#' in line:
+            line = line[:line.index('#')]
+        line = line.strip()
+        if line.startswith('-r'):
+            requirements.extend(read_requirements(line[2:].strip()))
+        elif line and not line.startswith('-'):
+            requirements.append(line)
     return requirements
 
 
@@ -29,11 +23,11 @@ setuptools.setup(
     name='sprockets.mixins.correlation',
     version=correlation.__version__,
     description='Stuff to correlate requests, logs, and the like',
-    long_description=codecs.open('README.rst', encoding='utf-8').read(),
+    long_description=pathlib.Path('README.rst').read_text(),
     url='https://github.com/sprockets/sprockets.mixins.correlation.git',
     author='AWeber Communications',
     author_email='api@aweber.com',
-    license=codecs.open('LICENSE', encoding='utf-8').read(),
+    license=pathlib.Path('LICENSE').read_text(),
     classifiers=[
         'Development Status :: 5 - Production/Stable',
         'Intended Audience :: Developers',
